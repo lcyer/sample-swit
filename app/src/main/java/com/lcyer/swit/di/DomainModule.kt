@@ -1,9 +1,6 @@
 package com.lcyer.swit.di
 
-import com.lcyer.swit.domain.BookMarkUserUseCase
-import com.lcyer.swit.domain.GetBookMarkUsersUseCase
-import com.lcyer.swit.domain.GetUsersUseCase
-import com.lcyer.swit.domain.SearchUserUseCase
+import com.lcyer.swit.domain.*
 import org.koin.dsl.module
 
 val domainModule = module {
@@ -21,5 +18,9 @@ val domainModule = module {
 
     factory {
         SearchUserUseCase(get())
+    }
+
+    factory {
+        SearchBookMarkUserUseCase(get())
     }
 }

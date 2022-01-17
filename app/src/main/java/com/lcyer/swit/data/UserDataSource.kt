@@ -9,6 +9,7 @@ interface UserDataSource {
     suspend fun getUsers(): Flow<List<User>>
     suspend fun getBookMarkUsers(): Flow<List<User>>
     suspend fun searchUser(searchFlow: Flow<String>): Flow<List<User>>
+    //suspend fun searchBookMarkUser(searchFlow: Flow<String>): Flow<List<User>>
 }
 
 class LocalUserDataSource(
@@ -35,9 +36,21 @@ class LocalUserDataSource(
             .collect {
                 val searchUsers = userDao
                     .getUsers()
-                    .filter { user -> user.book_mark && user.login.contains(it) }
+                    .filter { user -> user.login.contains(it) }
                     .also { Log.d("cylee", "find users -> $it") }
                 emit(searchUsers)
             }
     }.flowOn(Dispatchers.IO)
+
+    /*override suspend fun searchBookMarkUser(searchFlow: Flow<String>) = flow {
+        searchFlow
+            .debounce(300)
+            .collect {
+                val searchUsers = userDao
+                    .getUsers()
+                    .filter { user -> user.book_mark && user.login.contains(it) }
+                    .also { Log.d("cylee", "find users -> $it") }
+                emit(searchUsers)
+            }
+    }.flowOn(Dispatchers.IO)*/
 }

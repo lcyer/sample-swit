@@ -12,6 +12,7 @@ interface UserRepository {
     suspend fun getBookMarkUsers(): Flow<List<User>>
     suspend fun bookMarkUser(user: User)
     suspend fun searchUser(searchFlow: Flow<String>): Flow<List<User>>
+    //suspend fun searchBookMarkUser(searchFlow: Flow<String>): Flow<List<User>>
 }
 
 class UserRepositoryImpl(

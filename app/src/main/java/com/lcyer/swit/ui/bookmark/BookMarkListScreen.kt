@@ -22,58 +22,31 @@ import com.lcyer.swit.data.User
 
 @Composable
 fun BookMarkListScreen(
-    bookMarkUsers: List<User>,
-    onBookMarkClick: (User) -> Unit
+    bookMarkUsers: List<User>
 ) {
-    var bookMarkState by remember { mutableStateOf(false) }
-
     LazyColumn(
         modifier = Modifier.fillMaxSize()
     ) {
         items(bookMarkUsers) { user ->
-            user?.let {
-                bookMarkState = it.book_mark
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Image(
-                        modifier = Modifier
-                            .padding(end = 15.dp)
-                            .size(50.dp)
-                            .clip(CircleShape),
-                        painter = rememberImagePainter(
-                            data = user.avatar_url
-                        ),
-                        contentDescription = null
-                    )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Image(
+                    modifier = Modifier
+                        .padding(end = 15.dp)
+                        .size(50.dp)
+                        .clip(CircleShape),
+                    painter = rememberImagePainter(
+                        data = user.avatar_url
+                    ),
+                    contentDescription = null
+                )
 
-                    Text(
-                        text = user.login,
-                        fontWeight = FontWeight.Black
-                    )
-
-                    Box(
-                        modifier = Modifier
-                            .padding(
-                                end = 15.dp
-                            )
-                            .fillMaxWidth()
-                    ) {
-                        Icon(
-                            modifier = Modifier
-                                .align(Alignment.CenterEnd)
-                                .size(35.dp)
-                                .clickable {
-                                    it.book_mark = !it.book_mark
-                                    bookMarkState = it.book_mark
-                                    onBookMarkClick(it)
-                                },
-                            imageVector = if (bookMarkState) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
-                            contentDescription = null
-                        )
-                    }
-                }
+                Text(
+                    text = user.login,
+                    fontWeight = FontWeight.Black
+                )
             }
         }
     }

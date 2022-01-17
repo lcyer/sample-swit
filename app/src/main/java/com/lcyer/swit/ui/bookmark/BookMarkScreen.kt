@@ -1,6 +1,5 @@
 package com.lcyer.swit.ui.bookmark
 
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -26,9 +25,7 @@ fun BookMarkScreen(
         }
 
         bookMarkUsers.value?.let {
-            BookMarkListScreen(it) {
-
-            }
+            BookMarkListScreen(it)
         }
     }
 }
