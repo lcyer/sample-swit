@@ -1,16 +1,34 @@
 package com.lcyer.swit.di
 
-import com.lcyer.swit.data.UserPagingDataSource
-import com.lcyer.swit.data.UserRepository
-import com.lcyer.swit.data.UserRepositoryImpl
+import com.lcyer.swit.AppDataBase
+import com.lcyer.swit.data.*
 import org.koin.dsl.module
 
 val repoModule = module {
+
+    single<AppDataBase> {
+        AppDataBase.buildDataBase(get())
+    }
+
+    single<UserDao> {
+        get<AppDataBase>().userDao()
+    }
+
+    single<UserDataSource> {
+        LocalUserDataSource(get())
+    }
+
     single<UserPagingDataSource> {
-        UserPagingDataSource(get())
+        UserPagingDataSource(
+            get(),
+            get<UserDao>()
+        )
     }
 
     single<UserRepository> {
-        UserRepositoryImpl(get())
+        UserRepositoryImpl(
+            get(),
+            get()
+        )
     }
 }

@@ -1,9 +1,10 @@
-package com.lcyer.swit.ui
+package com.lcyer.swit.ui.bookmark
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
@@ -16,14 +17,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.paging.compose.LazyPagingItems
-import androidx.paging.compose.items
 import coil.compose.rememberImagePainter
 import com.lcyer.swit.data.User
 
 @Composable
-fun UserListScreen(
-    users: LazyPagingItems<User>,
+fun BookMarkListScreen(
+    bookMarkUsers: List<User>,
     onBookMarkClick: (User) -> Unit
 ) {
     var bookMarkState by remember { mutableStateOf(false) }
@@ -31,9 +30,9 @@ fun UserListScreen(
     LazyColumn(
         modifier = Modifier.fillMaxSize()
     ) {
-        items(users) { user ->
+        items(bookMarkUsers) { user ->
             user?.let {
-                bookMarkState = user.book_mark
+                bookMarkState = it.book_mark
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
@@ -66,9 +65,9 @@ fun UserListScreen(
                                 .align(Alignment.CenterEnd)
                                 .size(35.dp)
                                 .clickable {
-                                    user.book_mark = !user.book_mark
-                                    bookMarkState = user.book_mark
-                                    onBookMarkClick(user)
+                                    it.book_mark = !it.book_mark
+                                    bookMarkState = it.book_mark
+                                    onBookMarkClick(it)
                                 },
                             imageVector = if (bookMarkState) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
                             contentDescription = null

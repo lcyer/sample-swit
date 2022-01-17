@@ -7,11 +7,15 @@ import kotlinx.coroutines.flow.Flow
 
 interface UserRepository {
 
+    suspend fun getUsers(): Flow<List<User>>
     suspend fun getUsers(since: Int): Flow<PagingData<User>>
+    suspend fun getBookMarkUsers(): Flow<List<User>>
+    suspend fun bookMarkUser(user: User)
 }
 
 class UserRepositoryImpl(
-    private val userPagingDataSource: UserPagingDataSource
+    private val userPagingDataSource: UserPagingDataSource,
+    private val userDataSource: UserDataSource
 ) : UserRepository {
 
     override suspend fun getUsers(since: Int): Flow<PagingData<User>> = Pager(
@@ -19,4 +23,12 @@ class UserRepositoryImpl(
     ) {
         userPagingDataSource
     }.flow
+
+    override suspend fun bookMarkUser(user: User) = userDataSource.bookMarkUser(user)
+
+    override suspend fun getUsers(): Flow<List<User>> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getBookMarkUsers(): Flow<List<User>> = userDataSource.getBookMarkUsers()
 }

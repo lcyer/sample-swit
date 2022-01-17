@@ -35,6 +35,8 @@ fun UserScreen(
 
         UserListScreen(
             users = users
-        )
+        ) {
+            userViewModel.bookMarkUser(it)
+        }
     }
 }

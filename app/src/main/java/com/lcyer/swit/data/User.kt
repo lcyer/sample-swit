@@ -1,8 +1,12 @@
 package com.lcyer.swit.data
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity
 data class User(
+    @PrimaryKey(autoGenerate = true) val id: Int,
     val login: String,
-    val id: Int,
     val node_id: String,
     val avatar_url: String,
     val gravatar_id: String,
