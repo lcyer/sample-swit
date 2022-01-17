@@ -1,11 +1,13 @@
 package com.lcyer.swit.ui.bookmark
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
+import com.lcyer.swit.ui.SearchTextField
 import org.koin.androidx.compose.get
 
 @Composable
@@ -19,6 +21,10 @@ fun BookMarkScreen(
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
+        SearchTextField {
+            bookMarkViewModel.searchUser(it)
+        }
+
         bookMarkUsers.value?.let {
             BookMarkListScreen(it) {
 

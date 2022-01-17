@@ -11,6 +11,7 @@ interface UserRepository {
     suspend fun getUsers(since: Int): Flow<PagingData<User>>
     suspend fun getBookMarkUsers(): Flow<List<User>>
     suspend fun bookMarkUser(user: User)
+    suspend fun searchUser(searchFlow: Flow<String>): Flow<List<User>>
 }
 
 class UserRepositoryImpl(
@@ -31,4 +32,7 @@ class UserRepositoryImpl(
     }
 
     override suspend fun getBookMarkUsers(): Flow<List<User>> = userDataSource.getBookMarkUsers()
+
+    override suspend fun searchUser(searchFlow: Flow<String>): Flow<List<User>> =
+        userDataSource.searchUser(searchFlow)
 }

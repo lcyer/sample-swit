@@ -16,6 +16,7 @@ val viewModelModule = module {
 
     viewModel {
         BookMarkViewModel(
+            get(),
             get()
         )
     }
