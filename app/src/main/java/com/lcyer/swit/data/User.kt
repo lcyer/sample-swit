@@ -19,4 +19,5 @@ data class User(
     val received_events_url: String,
     val type: String,
     val site_admin: Boolean,
+    var book_mark: Boolean = false
 )
